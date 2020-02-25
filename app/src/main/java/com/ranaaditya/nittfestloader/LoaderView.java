@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 public class LoaderView extends View implements Runnable {
     private Context mcontext;
-    private Bitmap bitmap;
+    private Bitmap bulletbitmap,gunbitmap;
     private BulletSprite bulletSprite;
 
     public LoaderView(Context context, @Nullable AttributeSet attrs) {
@@ -26,8 +26,8 @@ public class LoaderView extends View implements Runnable {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawRGB(255, 255, 255);
-        if (bitmap != null) {
-            Log.d("BITMAP",String.valueOf(bitmap.toString()));
+        if (bulletbitmap != null && gunbitmap!=null) {
+            Log.d("BITMAP",String.valueOf(bulletbitmap.toString()));
 
             bulletSprite.draw(canvas);
         }else{
@@ -55,9 +55,14 @@ public class LoaderView extends View implements Runnable {
 
 
     private void  init() {
-         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bullet);
-         bitmap=getResizedBitmap(bitmap,bitmap.getWidth()/40,bitmap.getHeight()/30);
-        bulletSprite=new BulletSprite(bitmap);
+         bulletbitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bullet);
+         bulletbitmap=getResizedBitmap(bulletbitmap,bulletbitmap.getWidth()/40,bulletbitmap.getHeight()/30);
+         gunbitmap=BitmapFactory.decodeResource(getResources(),R.drawable.gun);
+         gunbitmap=getResizedBitmap(gunbitmap,gunbitmap.getWidth()/10,gunbitmap.getHeight()/10);
+        //gunbitmap=getResizedBitmap(gunbitmap, 350,350);
+
+
+        bulletSprite=new BulletSprite(bulletbitmap,gunbitmap);
         bulletSprite.init();
 
     }

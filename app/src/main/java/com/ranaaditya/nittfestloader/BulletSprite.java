@@ -12,6 +12,7 @@ import android.util.Log;
 public class BulletSprite {
 
     private Bitmap bulletBitmap;
+    Bitmap gunBitmap;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int mX=screenWidth/2;
@@ -24,8 +25,9 @@ public class BulletSprite {
     private Boolean isAnimationRunning=false;
     private Paint mFadeOutPaint=new Paint() ;
 
-    public BulletSprite(Bitmap bitmap){
+    public BulletSprite(Bitmap bitmap , Bitmap bitmap1){
         bulletBitmap=bitmap;
+        gunBitmap=bitmap1;
     }
 
     public void init(){
@@ -34,6 +36,7 @@ public class BulletSprite {
         x=screenWidth/2;
         y=screenHeight/2;
         mX=screenWidth/2;
+        //mX=0;
         xAcceleration=0.5f;
         xVelocity=10;
         mFadeOutPaint.setAlpha(255);
@@ -56,8 +59,13 @@ public class BulletSprite {
         if (canvas!=null && bulletBitmap!=null) {
             Log.d("bitmap",String.valueOf(bulletBitmap));
             update();
-            if (x<screenWidth)
-            canvas.drawBitmap(bulletBitmap,x,y,mFadeOutPaint);
+            Log.d("SIZE OF BITMAP : ",String.valueOf(gunBitmap.getWidth()));
+           // canvas.drawBitmap(gunBitmap,screenWidth/2 - gunBitmap.getWidth()/2,screenHeight/2-gunBitmap.getHeight()/2.50f,mFadeOutPaint);
+            canvas.drawBitmap(gunBitmap,screenWidth/2 - gunBitmap.getWidth()/2,screenHeight/2-gunBitmap.getHeight()/2.50f,mFadeOutPaint);
+
+            if (x<screenWidth) {
+                canvas.drawBitmap(bulletBitmap, x, y, mFadeOutPaint);
+            }
         }
 
     }
