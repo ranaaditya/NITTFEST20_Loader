@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 public class LoaderView extends View implements Runnable {
     private Context mcontext;
-    private Bitmap bulletbitmap,gunbitmap;
+    private Bitmap rightbulletbitmap,leftbulletBitmap, rightgunbitmap,leftgunBitmap;
     private BulletSprite bulletSprite;
 
     public LoaderView(Context context, @Nullable AttributeSet attrs) {
@@ -26,8 +26,8 @@ public class LoaderView extends View implements Runnable {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawRGB(255, 255, 255);
-        if (bulletbitmap != null && gunbitmap!=null) {
-            Log.d("BITMAP",String.valueOf(bulletbitmap.toString()));
+        if (rightbulletbitmap != null && rightgunbitmap !=null) {
+            Log.d("BITMAP",String.valueOf(rightbulletbitmap.toString()));
 
             bulletSprite.draw(canvas);
         }else{
@@ -55,15 +55,16 @@ public class LoaderView extends View implements Runnable {
 
 
     private void  init() {
-         bulletbitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bullet);
-         bulletbitmap=getResizedBitmap(bulletbitmap,bulletbitmap.getWidth()/40,bulletbitmap.getHeight()/30);
-         gunbitmap=BitmapFactory.decodeResource(getResources(),R.drawable.gun);
-         gunbitmap=getResizedBitmap(gunbitmap,gunbitmap.getWidth()/10,gunbitmap.getHeight()/10);
-        //gunbitmap=getResizedBitmap(gunbitmap, 350,350);
-
-
-        bulletSprite=new BulletSprite(bulletbitmap,gunbitmap);
-        bulletSprite.init();
+         rightbulletbitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bullet);
+         rightbulletbitmap =getResizedBitmap(rightbulletbitmap, rightbulletbitmap.getWidth()/40, rightbulletbitmap.getHeight()/30);
+         rightgunbitmap =BitmapFactory.decodeResource(getResources(),R.drawable.gun);
+         rightgunbitmap =getResizedBitmap(rightgunbitmap, rightgunbitmap.getWidth()/10, rightgunbitmap.getHeight()/10);
+         leftbulletBitmap=BitmapFactory.decodeResource(getResources(),R.drawable.leftbullet);
+         leftbulletBitmap=getResizedBitmap(leftbulletBitmap,leftbulletBitmap.getWidth()/40,leftbulletBitmap.getHeight()/30);
+         leftgunBitmap=BitmapFactory.decodeResource(getResources(),R.drawable.leftgunn);
+         leftgunBitmap=getResizedBitmap(leftgunBitmap,leftgunBitmap.getWidth()/10,leftgunBitmap.getHeight()/10);
+         bulletSprite=new BulletSprite(rightbulletbitmap, rightgunbitmap,leftbulletBitmap,leftgunBitmap);
+         bulletSprite.init();
 
     }
     private Bitmap getResizedBitmap(Bitmap bm, float newWidth, float newHeight) {
