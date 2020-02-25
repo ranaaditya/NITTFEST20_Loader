@@ -61,7 +61,7 @@ public class LoaderView extends View implements Runnable {
 
         //bullet  bitmap
 
-        rightbulletbitmap = BitmapFactory.decodeResource(getResources(), R.drawable.right_bullet_60);
+        rightbulletbitmap = BitmapFactory.decodeResource(getResources(), R.drawable.right_bullet_65);
         rightbulletbitmap = getResizedBitmap(rightbulletbitmap, rightbulletbitmap.getWidth() / 40, rightbulletbitmap.getHeight() / 30);
 
         leftbulletBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.left_bullet_65);

@@ -3,7 +3,6 @@ package com.ranaaditya.nittfestloader;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
 
@@ -17,8 +16,8 @@ public class BulletSprite {
     private int mXleft = screenWidth / 2;
     private int mxright;
     private long xleft, xright;
-    private long yleft ,yright;
-    private int y = screenHeight / 2;
+    private long myleft, myright;
+    private long yleft,yright;
     private long mFadeOutTime;
     private float xAcceleration = 2.0f;
     private float xVelocity = 10.0f;
@@ -34,13 +33,17 @@ public class BulletSprite {
     }
 
     public void init() {
+
+        myleft=screenHeight/2 -leftbulletBitmap.getHeight() * 2;
+        myright=screenHeight/2 - rightbulletBitmap.getHeight() * 2;
+        mXleft = screenWidth / 2;
+        mxright = screenWidth / 2 + leftgunBitmap.getWidth() / 2;
         mStarttimeMillis = 0L;
         isAnimationRunning = false;
-        xleft = screenWidth / 2;
-        xright = screenWidth/2 - leftgunBitmap.getWidth()/2;
-        //y = screenHeight / 2;
-        mXleft = screenWidth/2;
-        mxright = screenWidth / 2 + leftgunBitmap.getWidth() / 2;
+        xleft=mXleft;
+        xright=mxright;
+        yleft=mXleft;
+        yright=mxright;
         xAcceleration = 0.5f;
         xVelocity = 10;
         mFadeOutPaint.setAlpha(255);
@@ -61,8 +64,11 @@ public class BulletSprite {
             init();
         }
 
-        xleft = (long)  (mXleft  - (xVelocity * realTime + xAcceleration * realTime * realTime));
+        xleft = (long) (mXleft - (xVelocity * realTime + xAcceleration * realTime * realTime))- leftbulletBitmap.getWidth() * 2;
         xright = (long) (mxright + (xVelocity * realTime + xAcceleration * realTime * realTime));
+        yleft  = (long) (myleft  - (xVelocity * realTime + xAcceleration * realTime * realTime));
+        yright = (long) (myright - (xVelocity * realTime + xAcceleration * realTime * realTime));
+
 
         Log.d("X ----->>>>>", String.valueOf(xleft));
     }
@@ -83,17 +89,21 @@ public class BulletSprite {
             Log.d("RIGHT GUN HEIGHT SIZE :", String.valueOf(rightgunBitmap.getHeight()));
 
             //positioning of bullets ...
-            float leftwidthposition= screenWidth/2 - leftgunBitmap.getWidth();
-            float rightwidthposition =screenWidth/2 ;
-            float leftheightposition = screenHeight/2 - leftgunBitmap.getHeight()/1.5f;
-            float rightheightposition = screenHeight/2 - rightgunBitmap.getHeight()/1.5f;
-            canvas.drawBitmap(rightgunBitmap ,rightwidthposition ,rightheightposition,mFadeOutPaint);
-            canvas.drawBitmap(leftgunBitmap,leftwidthposition,leftheightposition,mFadeOutPaint);
+
+            float leftwidthposition = screenWidth / 2 - leftgunBitmap.getWidth();
+            float leftheightposition = screenHeight / 2 - leftgunBitmap.getHeight() / 1.5f;
+            float rightwidthposition = screenWidth / 2;
+            float rightheightposition = screenHeight / 2 - rightgunBitmap.getHeight() / 1.5f;
+
+            //gun bitmap
+            canvas.drawBitmap(rightgunBitmap, rightwidthposition, rightheightposition, mFadeOutPaint);
+            canvas.drawBitmap(leftgunBitmap, leftwidthposition, leftheightposition, mFadeOutPaint);
 
 
-            if (xright<screenWidth) {
-                canvas.drawBitmap(rightbulletBitmap, xright, y, mFadeOutPaint);
-                canvas.drawBitmap(leftbulletBitmap,xleft,y,mFadeOutPaint);
+            if (xright < screenWidth && xleft > 0) {
+                //bullets bitmap
+                canvas.drawBitmap(rightbulletBitmap, xright, yright, mFadeOutPaint);
+                canvas.drawBitmap(leftbulletBitmap, xleft , yleft, mFadeOutPaint);
             }
         }
 
