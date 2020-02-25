@@ -44,7 +44,7 @@ public class BulletSprite {
         xright=mxright;
         yleft=mXleft;
         yright=mxright;
-        xAcceleration = 0.5f;
+        xAcceleration = 2.5f;
         xVelocity = 10;
         mFadeOutPaint.setAlpha(255);
     }
@@ -66,8 +66,8 @@ public class BulletSprite {
 
         xleft = (long) (mXleft - (xVelocity * realTime + xAcceleration * realTime * realTime))- leftbulletBitmap.getWidth() * 2;
         xright = (long) (mxright + (xVelocity * realTime + xAcceleration * realTime * realTime));
-        yleft  = (long) (myleft  - (xVelocity * realTime + xAcceleration * realTime * realTime));
-        yright = (long) (myright - (xVelocity * realTime + xAcceleration * realTime * realTime));
+        yleft  = (long) (myleft  - ((xVelocity * realTime + xAcceleration * realTime * realTime)*17/44)+5);
+        yright = (long) (myright - (xVelocity * realTime + xAcceleration * realTime * realTime)*25/45);
 
 
         Log.d("X ----->>>>>", String.valueOf(xleft));
